@@ -44,8 +44,7 @@ const app = uWS
           break;
         }
         case "chat-pub": {
-          json.id = getUniqueID();
-          json.date = new Date();
+          json._id = getUniqueID();
           ws.publish(json.room, JSON.stringify(json));
         }
       }
