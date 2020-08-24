@@ -28,14 +28,14 @@ const app = uWS
     idleTimeout: 60000,
     open: (ws, req) => {
       ws.id = getUniqueID();
-      console.log(ws.id," connected")
+      console.log(ws.id, " connected");
     },
     message: (ws, message, isBinary) => {
       let json = JSON.parse(decoder.write(Buffer.from(message)));
-      console.log(json)
+      console.log(json);
       switch (json.action) {
         case "chat-sub": {
-          console.log("subbed",json.room)
+          console.log("subbed", json.room);
           ws.subscribe(json.room);
           break;
         }
@@ -44,8 +44,8 @@ const app = uWS
           break;
         }
         case "chat-pub": {
-          json.message.id = getUniqueID();
-          json.message.date = new Date();
+          json.id = getUniqueID();
+          json.date = new Date();
           ws.publish(json.room, JSON.stringify(json));
         }
       }
